@@ -1,8 +1,13 @@
 package com.sprc.app;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.function.BinaryOperator;
 import java.util.stream.IntStream;
 
 // Class that describes the different drinks that can be made.
@@ -12,7 +17,9 @@ public abstract class Recipe {
 	private Map<String, Integer> recipe;
 	public final String name;
 	private double cost;
-
+	private int sum;
+	private boolean flag;
+	
 	protected Inventory inventory;
 
 	public Recipe(String name, Inventory inventory) {
@@ -73,33 +80,56 @@ public abstract class Recipe {
 				return false;
 			}
 		}*/
-		recipe.stream().
-		return true;
+		/*recipe.stream().*/
+		//return true;
 		
 		/*recipe.forEach((k,v)->{
 			recipe.values().stream().filter( val -> !inventory.enoughOf(k, val)).findAny().isPresent();
 		});*/
-		//return recipe.entrySet().stream().filter(entry -> inventory.enoughOf(entry.getKey(), entry.getValue())) != null;
 		
+		return recipe.entrySet().stream()
+				.filter(entry -> { return inventory.enoughOf(entry.getKey(), entry.getValue());})
+				.count() == recipe.entrySet().size();
 				
 	}	
 	
 	// Computes the cost of the drink specified by the recipe
 	public int cost() {
-		int cost = 0;
+		
 		/*for (Entry<String, Integer> ingredient : recipe.entrySet()) {
 			for (int i = 0; i < ingredient.getValue(); i++) {
 				cost += inventory.getCost(ingredient.getKey());
 			}
 		}*/
-		recipe.entrySet().forEach(ingredient ->{
-			IntStream.range(0, ingredient.getValue()).forEach(
-					i -> cost + inventory.getCost(ingredient.getKey()));
-		});
 		
-		return cost;
+		//System.out.println(recipe.entrySet());
+		/*recipe.entrySet().forEach(ingredient ->{
+			IntStream.range(0, ingredient.getValue()).forEach( cost->{
+				}			
+			));*/
+					
+		/*	
+		ArrayList costs = new ArrayList();
+					
+		recipe.entrySet().forEach(i -> 
+		{
+			costs.add(i.getValue() * inventory.getCost(i.getKey()));
+			cost = cost + 100;
+		});
+		 System.out.println(costs);*/
+		//costs.stream().forEach(c -> {cost = c + cost;});
+	
+		recipe.entrySet().stream().forEach(i -> {sum = sum + (i.getValue() * inventory.getCost(i.getKey()));});
+		
+		return sum;
 	}
-
+	
+/*	private int getCost(int x, int sum)
+	{
+		sum = sum + x;
+		return sum;
+	}
+*/
 }
 
 class CoffeeRecipe extends Recipe {
