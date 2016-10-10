@@ -3,8 +3,9 @@ package com.sprc.app;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
-// Class to store the different available recipes
+// To store the different available recipes
 public class Menu {
 	
 	private Map<String, Recipe> recipes;
@@ -29,13 +30,15 @@ public class Menu {
 		}
 	}
 	
+	// Display the menu items
 	public void display() {
 		System.out.println("Menu:");
 		int i = 0;
-		recipes.forEach((k, v) -> {
-			String price = String.format("%.2f", v.getCost());
-			System.out.println((i + 1) + "," + k + "," + "$" + price + "," + v.isInStock());
-		});
+		for (Entry<String, Recipe> recipe : recipes.entrySet()) {
+			String price = String.format("%.2f", recipe.getValue().getCost());
+			System.out.println( (i + 1 ) + "," + recipe.getKey() + "," + "$" + price + "," + recipe.getValue().isInStock() );
+			i++;
+		}
 	}
 	
 	// Returns a new drink

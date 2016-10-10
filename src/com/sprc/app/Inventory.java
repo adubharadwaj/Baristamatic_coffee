@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+// Inventory of ingredients
 public class Inventory {
 
 	private Map<String, Integer> quantities;

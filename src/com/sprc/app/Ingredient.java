@@ -1,5 +1,6 @@
 package com.sprc.app;
 
+// Recipe for each drink with ingredients.
 public abstract class Ingredient extends Drink {
 
 	private Drink drink;
